@@ -31,3 +31,37 @@ user - (object):
   "password": "securepassword"
 },
 Token - JWT_TOKEN
+
+
+
+## Endpoint
+`POST /user/login`
+
+## Description
+This endpoint allows an existing user to log in by providing their email and password. It validates the input data and returns a JWT token if the credentials are correct.
+
+## Request Body
+The request body must be in JSON format and should contain the following fields:
+
+- `email`: A string representing the user's email address (required, must be a valid email format).
+- `password`: A string representing the user's password (required, minimum 6 characters).
+
+### Notes
+Ensure that the email and password provided match an existing user in the system. If the credentials are valid, a JWT token will be returned for authentication in subsequent requests.
+
+### Example Request
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "securepassword"
+}
+
+### Example Response
+{
+  "token": "JWT_TOKEN",
+  "user": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "john.doe@example.com"
+  }
+}
