@@ -65,3 +65,27 @@ Ensure that the email and password provided match an existing user in the system
     "email": "john.doe@example.com"
   }
 }
+
+
+## Logout User
+
+### Endpoint
+`POST /user/logout`
+
+### Description
+This endpoint allows a user to log out of their account. It clears the authentication token from the user's cookies and adds the token to a blacklist to prevent further use.
+
+### Request
+- **Headers**
+  - `Content-Type: application/json`
+  
+- **Cookies**
+  - `token`: The JWT token used for authentication.
+
+### Response
+- **Status Code**: `200 OK`
+- **Response Body**:
+  ```json
+  {
+    "message": "Logged out"
+  }
