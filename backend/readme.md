@@ -20,7 +20,7 @@ Ensure that the email provided is unique and not already registered in the syste
 Passwords are hashed before being stored in the database for security purposes.
 
 ### Example Request
-```json
+`` json
 user - (object):
 {
   "fullname": {
@@ -30,7 +30,7 @@ user - (object):
   "email": "john.doe@example.com",
   "password": "securepassword"
 },
-Token - JWT_TOKEN
+Token - JWT_TOKEN ``
 
 
 
@@ -50,11 +50,11 @@ The request body must be in JSON format and should contain the following fields:
 Ensure that the email and password provided match an existing user in the system. If the credentials are valid, a JWT token will be returned for authentication in subsequent requests.
 
 ### Example Request
-```json
+``json
 {
   "email": "john.doe@example.com",
   "password": "securepassword"
-}
+} ``
 
 ### Example Response
 {
