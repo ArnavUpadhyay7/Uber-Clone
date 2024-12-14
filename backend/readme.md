@@ -148,3 +148,77 @@ The request body must be in JSON format and should contain the following fields:
     }
   }
 }
+
+## Endpoint
+`POST /captain/login`
+
+### Description
+This endpoint allows an existing captain to log in by providing their email and password. It validates the input data and returns a JWT token if the credentials are correct.
+
+### Request Body
+The request body must be in JSON format and should contain the following fields:
+
+- `email`: A string representing the captain's email address (required, must be a valid email format).
+- `password`: A string representing the captain's password (required, minimum 6 characters).
+
+### Notes
+Ensure that the email and password provided match an existing captain in the system. If the credentials are valid, a JWT token will be returned for authentication in subsequent requests.
+
+### Example Request
+``json
+{
+  "email": "john.doe@example.com",
+  "password": "securepassword"
+}
+
+### Example Response
+{
+  "token": "JWT_TOKEN",
+  "captain": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "XYZ 1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+
+### Endpoint
+` GET /captain/profile `
+
+### Description
+This endpoint retrieves the profile information of the logged-in captain. It requires authentication via a valid JWT token.
+
+### Example response
+
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "vehicle": {
+    "color": "red",
+    "plate": "XYZ 1234",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+} `
+
+
+### Endpoint
+`POST /captain/logout`
+
+### Description
+This endpoint allows a captain to log out of their account. It clears the authentication token from the captain's cookies and adds the token to a blacklist to prevent further use.
+
+### Example Response
+{
+  "message": "Logged out"
+}

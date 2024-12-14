@@ -18,7 +18,7 @@ module.exports.registerCaptain = async (req, res, next) => {
     }
 
     const hashedPassword = await captainModel.hashPassword(password);
-    const newCaptain = await captainService.createUser({
+    const newCaptain = await captainService.createCaptain({
       firstname: fullname.firstname,
       lastname: fullname.lastname,
       email,
@@ -46,29 +46,29 @@ module.exports.loginCaptain = async (req, res, next) => {
     }
 
     const { email, password } = req.body;
-    const user = await captainModel.findOne({ email }).select("+password");
-    if (!user) {
+    const captain = await captainModel.findOne({ email }).select("+password");
+    if (!captain) {
       return res.status(401).json({ message: "Invalid credentials!" });
     }
-    const isValidPassword = await user.comparePassword(password);
+    const isValidPassword = await captain.comparePassword(password);
     if (!isValidPassword) {
       return res.status(401).json({ message: "Invalid credentials!" });
     }
-    const token = user.generateAuthToken();
+    const token = captain.generateAuthToken();
     res.cookie("token", token);
-    res.status(200).json({ token, user });
+    res.status(200).json({ token, captain });
   } catch (error) {
-    // console.error("Error creating user:", error);
-    res.status(500).json({ message: "Error Logging user" });
+    // console.error("Error creating captain:", error);
+    res.status(500).json({ message: "Error Logging captain" });
   }
 };
 
-module.exports.getProfile = async (req, res, next) => {
-  console.log(req.user);
-  res.status(200).json(req.user);
+module.exports.getCaptainProfile = async (req, res, next) => {
+  // console.log(req.captain);
+  res.status(200).json(req.captain);
 };
 
-module.exports.logoutUser = async (req, res, next) => {
+module.exports.logoutCaptain = async (req, res, next) => {
   res.clearCookie("token");
   const token = req.cookies.token;
 
