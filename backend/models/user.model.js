@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        lowercase: true,
         minlength: [5, 'Email must have atleast 3 letters']
     },
     password: {
