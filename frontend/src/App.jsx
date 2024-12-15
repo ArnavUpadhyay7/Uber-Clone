@@ -5,7 +5,7 @@ import Landing from './pages/Landing'
 import UserLogin from './pages/UserLogin'
 import UserSignUp from './pages/UserSignUp'
 import CaptainLogin from './pages/CaptainLogin'
-import CaptaiSignUp from './pages/CaptaiSignUp'
+import CaptaiSignUp from './pages/CaptainSignUp'
 
 function App() {
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const UserSignUp = () => {
+const CaptainSignUp = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ const UserSignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserData({
-      username: {
+      fullname: {
         firstname, lastname
       }, 
       email,
@@ -57,7 +57,7 @@ const UserSignUp = () => {
             className="bg-[#eeeeee] mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-base"
             required
             type="email"
-            placeholder="user@example.com"
+            placeholder="captain@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -76,7 +76,7 @@ const UserSignUp = () => {
         </form>
         <p className="text-center">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600">
+          <Link to="/captain-login" className="text-blue-600">
             Log in
           </Link>
         </p>
@@ -88,4 +88,4 @@ const UserSignUp = () => {
   );
 };
 
-export default UserSignUp;
+export default CaptainSignUp;
