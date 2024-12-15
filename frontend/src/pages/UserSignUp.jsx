@@ -1,23 +1,46 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UsersDataContext } from "../context/UsersContext";
 
 const UserSignUp = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const { user, setUser } = useContext(UsersDataContext);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setUserData({
-      username: {
-        firstname, lastname
-      }, 
+    const newUser = {
+      fullname: {
+        firstname,
+        lastname, 
+      },
       email,
-      password
-    })
-    // console.log(userData);
+      password,
+    };
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/user/register`,
+        newUser, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (res.status == 201) {
+        const data = res.data;
+        setUser(data.user);
+        localStorage.setItem('token', data.token);
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     setEmail("");
     setPassword("");
     setFirstname("");
@@ -45,7 +68,6 @@ const UserSignUp = () => {
             />
             <input
               className="bg-[#eeeeee] rounded px-4 py-2 border w-1/2 text-lg placeholder:text-base"
-              required
               type="text"
               placeholder="Last name"
               value={lastname}
@@ -71,7 +93,7 @@ const UserSignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button className="bg-[#111] text-white font-semibold mb-6 rounded px-4 py-2 w-full text-lg">
-            Submit
+            Create account
           </button>
         </form>
         <p className="text-center">
@@ -82,7 +104,10 @@ const UserSignUp = () => {
         </p>
       </div>
       <div>
-        <p className="text-center text-xs">Uber connects people to safe, reliable, and affordable rides, delivering seamless travel solutions across cities worldwide.</p>
+        <p className="text-center text-xs">
+          Uber connects people to safe, reliable, and affordable rides,
+          delivering seamless travel solutions across cities worldwide.
+        </p>
       </div>
     </div>
   );

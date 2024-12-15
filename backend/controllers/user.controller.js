@@ -5,7 +5,7 @@ const blacklistModel = require("../models/blacklistToken.model");
 
 module.exports.registerUser = async (req, res, next) => {
   try {
-
+    // console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -30,8 +30,10 @@ module.exports.registerUser = async (req, res, next) => {
     res.status(201).json({ token, newUser });
 
   } catch (error) {
-    // console.error("Error creating user:", error);
-    res.status(500).json({ message: "Error creating user" });
+    // console.error("Error creating user:", error);    
+    // res.status(500).json({ message: "Error creating user" });
+    console.error("Error creating user:", error);
+    res.status(500).json({ message: "Error creating user", error: error.message });
   }
 };
 
